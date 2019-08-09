@@ -13,3 +13,17 @@
 
 // Include common definitions from above.
 apply from: '../build.common.gradle'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
+repositories {
+    mavenCentral()
+}
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
