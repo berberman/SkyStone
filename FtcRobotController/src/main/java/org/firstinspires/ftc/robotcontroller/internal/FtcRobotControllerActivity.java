@@ -118,6 +118,8 @@ import org.firstinspires.ftc.robotcore.internal.ui.UILocation;
 import org.firstinspires.ftc.robotcore.internal.webserver.RobotControllerWebInfo;
 import org.firstinspires.ftc.robotserver.internal.programmingmode.ProgrammingModeManager;
 import org.firstinspires.inspection.RcInspectionActivity;
+import org.mechdancer.ftclib.classfilter.ClassFilterProvider;
+import org.mechdancer.ftclib.classfilter.MechDancerOpModeRegister;
 
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -330,6 +332,8 @@ public class FtcRobotControllerActivity extends Activity
     if (permissionsValidated) {
       ClassManager.getInstance().setOnBotJavaClassHelper(new OnBotJavaHelperImpl());
       ClassManagerFactory.registerFilters();
+	    ClassManager.getInstance().registerFilter(MechDancerOpModeRegister.INSTANCE);
+	    ClassManager.getInstance().registerFilter(ClassFilterProvider.INSTANCE);
       ClassManagerFactory.processAllClasses();
     }
 
@@ -707,7 +711,7 @@ public class FtcRobotControllerActivity extends Activity
   }
 
   protected OpModeRegister createOpModeRegister() {
-    return new FtcOpModeRegister();
+	  return MechDancerOpModeRegister.INSTANCE::register;
   }
 
   private void shutdownRobot() {
